@@ -58,14 +58,13 @@ export class AppController {
   // RESTA
   @Post('resta')
   @HttpCode(201)
-  @Header('RESULTADO','VALUE')
   resta(
     @Body() values,
     @Req() request,
     @Res({passthrough: true}) response,
   ){
     let parametersResult = Number(values.first_value) - Number(values.second_value);
-    response.header['RESULTADO']=parametersResult.toString()
+    response.header('resultado',parametersResult.toString())
     if (request.signedCookies['total'] != undefined || !isNaN(request.signedCookies['total'])) {
       let actualValue = Number(request.signedCookies['total']);
       let newValue = actualValue - parametersResult;
